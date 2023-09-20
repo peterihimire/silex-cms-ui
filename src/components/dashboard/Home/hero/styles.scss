@@ -1,0 +1,51 @@
+.content {
+  .wrappeer {
+    // // display: flex;
+    // justify-content: space-between;
+    // position: relative;
+    // // align-items: center;
+    // height: 100%;
+    // max-width: var(--wrapper-max-width);
+    // background-color: yellow;
+    width: 100%;
+
+    //  use with old setting
+    // width: 95%;
+    // margin: 0 auto;
+    @media (max-width: 1387px) {
+      //  use with old setting
+      // width: 90%;
+    }
+
+    @media (max-width: 1315px) {
+      //  use with old setting
+      // width: 95%;
+    }
+
+    @media (max-width: 1264px) {
+      justify-content: space-between;
+    }
+
+    .text-content {
+      // padding-top: 70px;
+      // flex: 4;
+      // height: 100vh;
+      // overflow: auto;
+      // height: calc(100vh - 70px);
+      padding: 20px;
+
+      //  use with old setting
+      // remove padding
+      @media (max-width: 680px) {
+        // padding-top: 10px;
+      }
+    }
+
+    .bar-content {
+      flex: 2;
+      padding-top: 70px;
+      background-color: aquamarine;
+      position: sticky;
+    }
+  }
+}
