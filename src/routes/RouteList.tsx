@@ -16,11 +16,11 @@ export const routes: RouteObject[] = [
     ],
   },
   {
-    path: "/login",
+    path: "/",
     element: <Login />,
   },
   {
-    path: "/",
+    path: "/register",
     element: <Register />,
   },
   { path: "*", element: <h2>error 404</h2> },

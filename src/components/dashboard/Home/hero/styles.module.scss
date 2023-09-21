@@ -1,5 +1,5 @@
 .content {
-  .wrappeer {
+  .wrapper {
     // // display: flex;
     // justify-content: space-between;
     // position: relative;
@@ -26,13 +26,14 @@
       justify-content: space-between;
     }
 
-    .text-content {
-      // padding-top: 70px;
+    .textContent {
+      padding-top: 70px;
       // flex: 4;
       // height: 100vh;
       // overflow: auto;
       // height: calc(100vh - 70px);
-      padding: 20px;
+      padding: 70px 20px 0px 20px;
+      // margin-top: 70px;
 
       //  use with old setting
       // remove padding

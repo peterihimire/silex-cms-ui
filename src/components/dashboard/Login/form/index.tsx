@@ -164,9 +164,7 @@ const Form: React.FC<FormProps> = () => {
 
         <div className={styles.register}>
           <span>Don't have an account? </span>
-          {/* <Link href='/register'>
-            <a className={styles.linkStyle}>Register</a>
-          </Link> */}
+          <Link to="/register">Register</Link>
         </div>
       </form>
     </div>
