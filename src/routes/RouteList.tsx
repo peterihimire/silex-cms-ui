@@ -6,17 +6,40 @@ import { Register } from "../pages/register";
 
 export const routes: RouteObject[] = [
   {
-    path: "/dashboard",
+    path: "/",
     element: <DashboardLayout />,
     children: [
       {
-        index: true,
+        // index: true,
+        path: "/dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "/menu",
+        element: <Dashboard />,
+      },
+      {
+        path: "/logo",
+        element: <Dashboard />,
+      },
+      {
+        path: "/slider",
+        element: <Dashboard />,
+      },
+      {
+        path: "/flipbox",
+        element: <Dashboard />,
+      },
+      {
+        path: "/category",
         element: <Dashboard />,
       },
     ],
   },
+
   {
-    path: "/",
+    // path: "/login",
+    index: true,
     element: <Login />,
   },
   {

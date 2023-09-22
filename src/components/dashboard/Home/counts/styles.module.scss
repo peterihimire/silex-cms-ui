@@ -27,18 +27,38 @@
     }
 
     .textContent {
-      padding-top: 70px;
+      // padding-top: 70px;
       // flex: 4;
       // height: 100vh;
       // overflow: auto;
       // height: calc(100vh - 70px);
-      padding: 70px 20px 0px 20px;
+      padding: 80px 20px 0px 20px;
       // margin-top: 70px;
 
       //  use with old setting
       // remove padding
       @media (max-width: 680px) {
         // padding-top: 10px;
+      }
+
+      .flipboxDiv {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 33px 33px;
+
+        .flipbox {
+          padding: 50px;
+          box-shadow: var(--box-shadow);
+          // border: var(--main) 2px solid;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+
+          h4 {
+            font-size: 30px;
+          }
+        }
       }
     }
 

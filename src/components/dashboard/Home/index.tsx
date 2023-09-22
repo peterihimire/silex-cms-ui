@@ -1,18 +1,16 @@
 import React from "react";
-import HomeHero from "./hero";
-import OneWallet from "./oneWallet";
+import Counts from "./counts";
 
 import { Helmet, HelmetProvider } from "react-helmet-async";
 
-const HomePage = () => {
+const HomePage: React.FC = () => {
   return (
     <HelmetProvider>
       <Helmet>
         <title>Dashboord - Silex</title>
       </Helmet>
 
-      <HomeHero />
-      <OneWallet />
+      <Counts />
     </HelmetProvider>
   );
 };

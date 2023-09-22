@@ -1,18 +1,20 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { AllRoutes } from "./routes/AllRoutes";
-// import { Provider } from "react-redux";
-// import initStore from "./redux/store";
+import { Provider } from "react-redux";
+import initStore from "./redux/store";
 
-// export const store = initStore({});
+export const store = initStore({});
+
+console.log("This is the store", store);
 
 const App: React.FC = (): JSX.Element => {
   return (
-    // <Provider store={store}>
-    <BrowserRouter>
-      <AllRoutes />
-    </BrowserRouter>
-    // </Provider>
+    <Provider store={store}>
+      <BrowserRouter>
+        <AllRoutes />
+      </BrowserRouter>
+    </Provider>
   );
 };
 

@@ -13,43 +13,27 @@ const userLinks = [
     has_sub_menu: false,
   },
   {
-    title: "menu",
+    title: "flipbox",
     has_sub_menu: true,
-    content: [
-      "home",
-      "about",
-      "services",
-      "faq",
-      "contact1",
-    ],
+    content: ["flipbox", "category"],
   },
   {
     title: "logo",
     has_sub_menu: false,
   },
   {
-    title: "flipbox",
+    title: "menu",
     has_sub_menu: false,
   },
   {
     title: "slider",
     has_sub_menu: false,
   },
-  // { title: "Logout", link: "logout" },
+  // {
+  //   title: "category",
+  //   has_sub_menu: false,
+  // },
 ];
-
-// const adminLinks = [
-//   { title: "Dashboard", link: "dashboard" },
-//   { title: "My Profile", link: "my-profile" },
-//   { title: "My Courses", link: "my-courses" },
-//   { title: "My Documents", link: "my-documents" },
-//   { title: "My Results", link: "my-results" },
-//   { title: "My Wallet", link: "my-wallet" },
-//   { title: "Exam", link: "exam" },
-//   { title: "My Fees", link: "my-fees" },
-//   { title: "Support", link: "support" },
-//   // { title: "Logout", link: "logout" },
-// ];
 
 const DashboardSideBar: React.FC<DashboardSideBarProps> = ({
   isOpen,
@@ -76,9 +60,7 @@ const DashboardSideBar: React.FC<DashboardSideBarProps> = ({
                     // className={`${styles.dashLink}`}
                     to={`/${link.title}`}
                     className={`${styles.navlink}  ${
-                      fullPath === `/${link.title}`
-                        ? styles.active
-                        : ""
+                      fullPath === `/${link.title}` ? styles.active : ""
                     }`}
                     // className={`${styles.navlink}`}
                   >
@@ -104,22 +86,6 @@ const DashboardSideBar: React.FC<DashboardSideBarProps> = ({
                 />
               )}
             </>
-            // <Accordion
-            //   key={index}
-            //   focus={index}
-            //   title={link.title}
-            //   content={link?.content?.map((cont, index) => {
-            //     return (
-            //       <NavLink
-            //         key={index}
-            //         className={`${styles.dashLink}`}
-            //         to={`/${cont}`}
-            //       >
-            //         <span>{cont}</span>
-            //       </NavLink>
-            //     );
-            //   })}
-            // />
           );
         })}
 

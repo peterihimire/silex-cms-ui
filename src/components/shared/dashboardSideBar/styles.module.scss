@@ -149,9 +149,10 @@
         display: flex;
         align-items: center;
         padding: 15px 10px;
-        color: var(--white) // color: themed("textColor");
-          span {
+        color: var(--main);
+        span {
           margin-left: 10px;
+          color: var(--main);
         }
       }
       .active {
