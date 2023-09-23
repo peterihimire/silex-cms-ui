@@ -41,41 +41,42 @@ import userAPI from "../api/user";
 
 // login
 
-export const register = (payload: UserPayloadProps) => {
-  return async (dispatch: Dispatch<UserDispatchTypes>) => {
-    // dispatch(loginStart(true));
-    dispatch({
-      type: USER_REGISTER_START,
-      payload: { loading: true },
-    });
+// LAST USED ONE
+// export const register = (payload: UserPayloadProps) => {
+//   return async (dispatch: Dispatch<UserDispatchTypes>) => {
+//     // dispatch(loginStart(true));
+// dispatch({
+//   type: USER_REGISTER_START,
+//   payload: { loading: true },
+// });
 
-    try {
-      const response = await userAPI.registerUser(payload);
-      console.log(response);
-      // console.log(response.data.accessToken);
-      const { data } = response.data;
-      localStorage.setItem("silex_user", JSON.stringify(data));
-      await dispatch({
-        type: USER_REGISTER_RESPONSE,
-        payload: data,
-      });
-      return Promise.resolve(data);
-    } catch (err: any) {
-      console.log(err);
-      dispatch({
-        type: USER_REGISTER_ERROR,
-        payload: {
-          status: err.status,
-          msg: err.msg,
-        },
-        // loginError(err.response)
-      });
-      return Promise.reject(err);
-    } finally {
-      // dispatch(loginStart(false));
-    }
-  };
-};
+//     try {
+//       const response = await userAPI.registerUser(payload);
+//       console.log(response);
+//       // console.log(response.data.accessToken);
+//       const { data } = response.data;
+//       localStorage.setItem("silex_user", JSON.stringify(data));
+//       dispatch({
+//         type: USER_REGISTER_RESPONSE,
+//         payload: data,
+//       });
+//       return Promise.resolve(data);
+//     } catch (err: any) {
+//       console.log(err);
+//       dispatch({
+//         type: USER_REGISTER_ERROR,
+//         payload: {
+//           status: err.status,
+//           msg: err.msg,
+//         },
+//         // loginError(err.response)
+//       });
+//       return Promise.reject(err);
+//     } finally {
+//       // dispatch(loginStart(false));
+//     }
+//   };
+// };
 
 // export const login = (payload: UserPayloadProps) => {
 //   return async (dispatch: Dispatch<UserDispatchTypes>) => {
@@ -121,3 +122,43 @@ export const register = (payload: UserPayloadProps) => {
 //     }
 //   };
 // };
+
+export const register =
+  (payload: UserPayloadProps) =>
+  async (dispatch: Dispatch<UserDispatchTypes>) => {
+    try {
+      dispatch({
+        type: USER_REGISTER_START,
+        payload: { loading: true },
+      });
+
+      const response = await userAPI.registerUser(payload);
+      console.log(response);
+      // console.log(response.data.accessToken);
+      const { data } = response.data;
+      localStorage.setItem("silex_user", JSON.stringify(data));
+
+      dispatch({
+        type: USER_REGISTER_RESPONSE,
+        payload: data,
+      });
+      // return Promise.resolve(data);
+      return data;
+    } catch (err: any) {
+      console.log(err);
+
+      dispatch({
+        type: USER_REGISTER_ERROR,
+        payload: {
+          status: err.status,
+          msg: err.msg,
+        },
+      });
+      return Promise.reject(err);
+    } finally {
+      dispatch({
+        type: USER_REGISTER_START,
+        payload: { loading: false },
+      });
+    }
+  };

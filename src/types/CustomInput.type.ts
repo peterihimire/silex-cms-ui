@@ -14,4 +14,7 @@ export type CustomInputProps = {
   type: string;
   name: string;
   placeholder: string;
+  value?: string;
+  onBlur?: (payload:string) => void;
+  onChange?: (payload: string) => void;
 };

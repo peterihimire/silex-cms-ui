@@ -5,12 +5,13 @@ import Input from "../../../shared/customInput";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-// import * as actions from "../../../../redux/actions/userAction";
-// import { adminLogin } from "../../../../redux/actions/adminAction";
-// import { useSelector, useDispatch } from "react-redux";
+import * as actions from "../../../../redux/actions/userAction";
+import { register } from "../../../../redux/actions/userAction";
+import { useSelector, useDispatch } from "react-redux";
 import { CircularProgress } from "@mui/material";
 import { Visibility } from "@mui/icons-material";
 import { VisibilityOff } from "@mui/icons-material";
+import { UserPayloadProps } from "../../../../types/UserPayloadProps.type";
 
 interface FormProps {
   // open: boolean;
@@ -19,7 +20,7 @@ interface FormProps {
 
 const Form: React.FC<FormProps> = () => {
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const location = useLocation();
   const from = location?.state?.from?.pathname;
   console.log(from);
@@ -36,7 +37,7 @@ const Form: React.FC<FormProps> = () => {
     password: "",
     // checked: true,
   });
-  // const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [formError, setFormError] = useState("");
   const [logging, setLogging] = useState(false);
 
@@ -51,10 +52,10 @@ const Form: React.FC<FormProps> = () => {
   //   setLoginForm({ ...loginForm, [name]: value });
   // };
 
-  // const user = useSelector((state) => {
-  //   return state;
-  // });
-  // console.log(user);
+  const user = useSelector((state) => {
+    return state;
+  });
+  console.log(user);
   console.log(logging);
   // console.log(loginForm);
 
@@ -64,6 +65,27 @@ const Form: React.FC<FormProps> = () => {
   //     loading: state.auth.loading,
   //   };
   // });
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().email("Invalid email address").required("Required *"),
+      password: Yup.string().required("Required *"),
+    }),
+
+    onSubmit: async (values) => {
+      console.log("This is coming from formik-values...", values);
+      try {
+        // await dispatch(register(values)); // Dispatching the register action with form values
+        alert("Registration successful!"); // Optional success message
+      } catch (error) {
+        alert("Registration failed. Please try again."); // Optional error message
+      }
+    },
+  });
 
   // const formik = useFormik({
   //   initialValues: {
@@ -77,10 +99,11 @@ const Form: React.FC<FormProps> = () => {
 
   //   onSubmit: async (values) => {
   //     setLogging(true);
+
   //     try {
-  //       const admin = await dispatch(adminLogin(values));
-  //       console.log(admin);
-  //       navigate("/admin/dashboard", { admin });
+  //       const user = await dispatch(register(values));
+  //       console.log(user);
+  //       navigate("/login");
   //     } catch (err) {
   //       console.log(err);
   //       // setFormError(err.data.errors);
@@ -91,12 +114,12 @@ const Form: React.FC<FormProps> = () => {
   // });
 
   return (
-    <div className={styles.loginForm}>
+    <div className={styles.registerForm}>
       <h2>Register Account</h2>
 
       <form
-      // onSubmit={formik.handleSubmit}
-      // onSubmit={(e) => handleLogin(e)}
+        onSubmit={formik.handleSubmit}
+        // onSubmit={(e) => handleLogin(e)}
       >
         <div className={styles.formGroup}>
           <Input
@@ -109,13 +132,13 @@ const Form: React.FC<FormProps> = () => {
             // value={loginForm.email}
             // onChange={(e) => handleFormChange(e.target)}
 
-            // value={formik.values.email}
-            // onBlur={formik.handleBlur}
-            // onChange={formik.handleChange}
+            value={formik.values.email}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
           />
-          {/* {formik.touched.email && formik.errors.email ? (
+          {formik.touched.email && formik.errors.email ? (
             <p className={styles.errorStyle}>{formik.errors.email}</p>
-          ) : null} */}
+          ) : null}
         </div>
         <div className={styles.formGroup}>
           <Input
@@ -129,13 +152,13 @@ const Form: React.FC<FormProps> = () => {
             password
             reveal={() => toggleVisibility()}
             passIcon={!visible ? <Visibility /> : <VisibilityOff />}
-            // value={formik.values.password}
-            // onBlur={formik.handleBlur}
-            // onChange={formik.handleChange}
+            value={formik.values.password}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
           />
-          {/* {formik.touched.password && formik.errors.password ? (
+          {formik.touched.password && formik.errors.password ? (
             <p className={styles.errorStyle}>{formik.errors.password}</p>
-          ) : null} */}
+          ) : null}
         </div>
         <div className={styles.forgot}>
           {/* <Link href='/forgot-password'>

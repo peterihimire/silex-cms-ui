@@ -17,6 +17,9 @@ const Input: React.FC<CustomInputProps> = ({
   passIcon,
   password,
   type,
+  onBlur,
+  onChange,
+  value,
   ...props
 }: CustomInputProps) => {
   const [visible, setVisible] = useState(false);

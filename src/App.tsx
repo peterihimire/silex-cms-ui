@@ -2,9 +2,9 @@ import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { AllRoutes } from "./routes/AllRoutes";
 import { Provider } from "react-redux";
-import initStore from "./redux/store";
+import store from "./redux/store";
 
-export const store = initStore({});
+// export const store = Store({});
 
 console.log("This is the store", store);
 

@@ -3,7 +3,8 @@ import {
   UserResponseData,
   USER_REGISTER_START,
   USER_REGISTER_RESPONSE,
-  USER_REGISTER_ERROR,UserDispatchTypes
+  USER_REGISTER_ERROR,
+  UserDispatchTypes,
 } from "../actions/actionTypes";
 
 interface UserData {
@@ -31,18 +32,20 @@ const defaultState: DefaultStateI = {
   // error: null,
   // response: {},
 };
-const UserReducer = (state: DefaultStateI = defaultState, action: UserDispatchTypes) => {
+const UserReducer = (
+  state: DefaultStateI = defaultState,
+  action: UserDispatchTypes
+) => {
   switch (action.type) {
-    case USER_REGISTER_RESPONSE:
-      return { ...state, authenticated: true, userData: action.payload };
     case USER_REGISTER_START:
       return {
         ...state,
-        loading: action.payload,
+        loading: action.payload.loading,
       };
     case USER_REGISTER_RESPONSE:
       return {
         ...state,
+        authenticated: true, // Assuming you want to set authenticated to true on response
         userData: action.payload,
       };
     case USER_REGISTER_ERROR:

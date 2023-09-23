@@ -1,5 +1,6 @@
 import React, { useState, ReactNode } from "react";
 import { KeyboardArrowDown, KeyboardArrowRight } from "@mui/icons-material";
+import { useLocation } from "react-router-dom";
 // import { AccordionProps } from "../../../types/AccordionProps.type";
 
 import styles from "./styles.module.scss";
@@ -15,6 +16,14 @@ const Accordion: React.FC<AccordionProps> = ({
   content,
   focus,
 }: AccordionProps) => {
+  const location = useLocation();
+  console.log(location);
+  console.log(location.pathname.split("/")[1]);
+  const fullPath = location.pathname;
+  console.log(fullPath, "this is fullpath");
+  let pathUrl = location.pathname.split("/")[1];
+  console.log("This is path-url...", pathUrl);
+
   const [clicked, setClicked] = useState<number | null>();
   console.log(clicked, focus);
   console.log(typeof focus);
@@ -30,8 +39,17 @@ const Accordion: React.FC<AccordionProps> = ({
   };
 
   return (
-    <li className={`${styles.accordionList}`}>
-      <button onClick={() => toggler(focus)}>
+    <li
+      className={`${styles.accordionList}  ${
+        fullPath === "/flipbox" || "/category" ? styles.active : ""
+      }`}
+    >
+      <button
+        onClick={() => toggler(focus)}
+        className={`${fullPath === "/flipbox" ? styles.active : ""} ${
+          fullPath === "/category" ? styles.active : ""
+        }`}
+      >
         <div className={`${styles.headInfo}`}>
           <h4>{title}</h4>
         </div>
@@ -40,8 +58,20 @@ const Accordion: React.FC<AccordionProps> = ({
         </div>
       </button>
 
-      <div className={`${styles.content} ${clicked === focus && `${styles.show}`}`}>
-        <div className={`${styles.subHead}`}>{content}</div>
+      <div
+        className={`${styles.content} ${
+          fullPath === "/category" ? styles.active : ""
+        } ${fullPath === "/flipbox" ? styles.active : ""} ${
+          clicked === focus && `${styles.show}`
+        }`}
+      >
+        <div
+          className={`${styles.subHead} ${
+            fullPath === "/category" ? styles.active : ""
+          } ${fullPath === "/flipbox" ? styles.active : ""}`}
+        >
+          {content}
+        </div>
       </div>
     </li>
   );

@@ -76,7 +76,9 @@ const DashboardSideBar: React.FC<DashboardSideBarProps> = ({
                     return (
                       <NavLink
                         key={index}
-                        className={`${styles.dashLink}`}
+                        className={`${styles.dashLink}  ${
+                          fullPath === "/category" ? styles.active : ""
+                        } ${fullPath === "/flipbox" ? styles.active : ""}`}
                         to={`/${cont}`}
                       >
                         <span>{cont}</span>
