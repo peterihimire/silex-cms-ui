@@ -34,20 +34,3 @@ const Backdrop: React.FC<BackdropProps> = ({ open, clicked }) => {
 };
 
 export default Backdrop;
-
-// import React from "react";
-// import ReactDOM from "react-dom";
-
-// interface BackdropProps {
-//   open: boolean;
-//   clicked: () => void;
-// }
-
-// const Backdrop: React.FC<BackdropProps> = ({ open, clicked }) => {
-//   return ReactDOM.createPortal(
-//     <div className={`backdrop ${open ? "show" : ""}`} onClick={clicked}></div>,
-//     document.getElementById("backdrop")!
-//   );
-// };
-
-// export default Backdrop;

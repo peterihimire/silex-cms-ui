@@ -1,72 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styles from "./styles.module.scss";
 import { DashboardHeaderProps } from "../../../types/DashboardHeaderProps.type";
-// import Link from "next/link";
-// import Nav from "../dashboardNav";
-// import Logo from "../../../public/images/logo-light.svg";
-// import LogoDark from "../../../public/images/logo-dark.svg";
-// import { useRouter } from "next/router";
+import { Link } from "react-router-dom";
 
-const DashboardHeader: React.FC<DashboardHeaderProps> = ({ isOpen, clicked }: DashboardHeaderProps) => {
-  const [isDropOpen, setDropOpen] = useState(false);
-
-  const [bgChange, setBgChange] = useState(false);
-
-  // const router = useRouter();
-
-  // const dropHandler = (payload) => {
-  //   setDropOpen(payload);
-  // };
-
-  useEffect(() => {
-    if (!isOpen) {
-      setDropOpen(false);
-    }
-  }, [isOpen]);
-
-  useEffect(
-    () => {
-      setDropOpen(false);
-    },
-    [
-      // router.pathname
-    ]
-  );
-
-  useEffect(() => {
-    const changeHeaderBg = () => {
-      if (window.scrollY >= 40) {
-        setBgChange(true);
-      } else {
-        setBgChange(false);
-      }
-    };
-
-    window.addEventListener("scroll", changeHeaderBg);
-
-    return () => {
-      window.removeEventListener("scroll", changeHeaderBg);
-    };
-  }, []);
-
+const DashboardHeader: React.FC<DashboardHeaderProps> = ({
+  isOpen,
+  clicked,
+}: DashboardHeaderProps) => {
   return (
     <header className={`${styles.header} `}>
       <div className={styles.wrapper}>
         <div className={styles.logo}>
-          {/* <Link href="/"> */}
-          <a className={`${isDropOpen ? styles.lightLogo : ""}`}>
+          <Link to="/">
             {/* <Logo /> */}
             HalaDigital
-          </a>
-          {/* </Link> */}
+          </Link>
         </div>
-
-        {/* <Nav
-          bgChange={bgChange}
-          isDrop={isDropOpen}
-          isOpen={isOpen}
-          clicked={(payload) => dropHandler(payload)}
-        /> */}
 
         <div className={styles.hamburgerBtn}>
           <button

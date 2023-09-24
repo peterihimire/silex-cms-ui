@@ -1,17 +1,9 @@
-// import React from "react";
-// import Nav from "./nav";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { DashboardSideBarProps } from "../../../types/DashboardSideBarprops";
 import Accordion from "../accordion";
-
-import { CircularProgress } from "@mui/material";
-import { Visibility } from "@mui/icons-material";
-import { VisibilityOff } from "@mui/icons-material";
 import { useAppDispatch } from "../../../hooks/useTypedSelector";
 import { logoutUser } from "../../../redux/features/users/userSlice";
-// import { useAppDispatch } from "../../../../hooks/useTypedSelector";
-// import { loginUser } from "../../../../reduxs/features/users/userSlice";
 
 import styles from "./styles.module.scss";
 
@@ -37,10 +29,6 @@ const userLinks = [
     title: "slider",
     has_sub_menu: false,
   },
-  // {
-  //   title: "category",
-  //   has_sub_menu: false,
-  // },
 ];
 
 const DashboardSideBar: React.FC<DashboardSideBarProps> = ({

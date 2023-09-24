@@ -1,8 +1,6 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import Form from "./form";
-// import Link from "next/link";
-// import Image from "next/image";
 
 const Register: React.FC = () => {
   return (

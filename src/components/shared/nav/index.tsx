@@ -1,21 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import {
-  ArrowDownward,
-  DarkModeOutlined,
   Search,
   PersonOutline,
   ShoppingCartOutlined,
 } from "@mui/icons-material";
 import { NavProps } from "../../../types/NavProps.type";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
-// import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-// import { faShoppingBag } from "@fortawesome/free-solid-svg-icons";
-// import { faSearch } from "@fortawesome/free-solid-svg-icons";
-// import { WbSunnyOutlined } from "@mui/icons-material";
-// import useDarkMode from "use-dark-mode-ts";
 import styles from "./styles.module.scss";
 
 const Nav: React.FC<NavProps> = ({ isOpen, bgChange }: NavProps) => {
@@ -24,10 +16,7 @@ const Nav: React.FC<NavProps> = ({ isOpen, bgChange }: NavProps) => {
   console.log(location.pathname.split("/")[1]);
   const fullPath = location.pathname;
   let pathUrl = location.pathname.split("/")[1];
-  console.log("This is path-url...", pathUrl);
 
-  // const darkMode = useDarkMode(false);
-  // console.log(darkMode);
 
   const [about, openAbout] = useState(false);
 

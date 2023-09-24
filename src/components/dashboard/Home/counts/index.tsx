@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { CircularProgress } from "@mui/material";
 import {
   useAppDispatch,
   useAppSelector,

@@ -21,10 +21,8 @@ const Form: React.FC<FormProps> = () => {
   const location = useLocation();
   const from = location?.state?.from?.pathname;
   console.log(from);
-
   const [formError, setFormError] = useState("");
   const [logging, setLogging] = useState(false);
-
   const [visible, setVisible] = useState(false);
 
   const toggleVisibility = () => {

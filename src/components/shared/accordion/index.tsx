@@ -1,7 +1,7 @@
 import React, { useState, ReactNode } from "react";
 import { KeyboardArrowDown, KeyboardArrowRight } from "@mui/icons-material";
 import { useLocation } from "react-router-dom";
-// import { AccordionProps } from "../../../types/AccordionProps.type";
+
 
 import styles from "./styles.module.scss";
 

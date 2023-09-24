@@ -1,10 +1,8 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import Form from "./form";
-// import Link from "next/link";
-// import Image from "next/image";
 
-const Login = () => {
+const Login: React.FC = () => {
   return (
     <div className={`${styles.wraper}`}>
       <div className={`${styles.left}`}>

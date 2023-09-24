@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Header from "../../components/shared/dashboardHeader";
 import Backdrop from "../../components/shared/backdrop";
-// import Footer from "../../components/ui/footer";
 import Sidebar from "../../components/shared/dashboardSideBar";
 import DashboardHeader from "../../components/shared/dashboardMainHeader";
 import { Outlet } from "react-router-dom";
 
 import styles from "./styles.module.scss";
 
-// import { useRouter } from "next/router";
-
-const DashboardSettingsLayout = () => {
+const DashboardSettingsLayout: React.FC = () => {
   const [open, setOpen] = useState(false);
-
-  // const router = useRouter();
 
   useEffect(
     () => {

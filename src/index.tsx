@@ -1,10 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./styles/main.scss";
-// import "swiper/css";
-import NProgress from "nprogress";
-// import "swiper/css/pagination";
-// import "swiper/css/bundle";
 import "nprogress/nprogress.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";

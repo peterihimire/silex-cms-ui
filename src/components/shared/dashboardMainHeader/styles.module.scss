@@ -1,19 +1,14 @@
 .dash_headerr {
-  // @include themify($themes) {
   width: calc(100% - 300px);
   height: 60px;
-  // position: relative;
   position: fixed;
   display: flex;
   align-items: center;
-  // background-color: rgb(177, 172, 172);
   background-color: var(--white);
-  // background: themed("bg");
   top: 0px;
   left: 0;
   z-index: 9;
   border-bottom: #dbdef2 solid 1px;
-  // box-shadow: 0px 5px 15px #dbdef2;
 
   &.bgDark {
     background: #0202c6;
@@ -38,15 +33,10 @@
     top: 70px;
   }
   @media (max-width: 659px) {
-    // position: static;
     top: 72px;
     position: relative;
-    // height: 60px;
-    // margin-top: 40px;
     z-index: 9;
     background-color: rgb(177, 172, 172);
-    // border-radius: 10px;
-    // margin: 0px 10px;
   }
 
   .wrapper {
@@ -57,7 +47,6 @@
     align-items: center;
     height: 100%;
     max-width: var(--wrapper-max-width);
-    // background-color: yellow;
 
     @media (max-width: 1387px) {
       // width: 90%;
@@ -78,9 +67,7 @@
       font-size: 24px;
       line-height: 29px;
       font-weight: bold;
-      // text-transform: capitalize;
       color: var(--black);
-      // color: themed("textColor");
 
       @media (max-width: 659px) {
         font-size: 14px;
