@@ -36,6 +36,7 @@ const Form: React.FC<FormProps> = () => {
     password: "",
     // checked: true,
   });
+
   // const [showPassword, setShowPassword] = useState(false);
   const [formError, setFormError] = useState("");
   const [logging, setLogging] = useState(false);

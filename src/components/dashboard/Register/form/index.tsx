@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styles from "./styles.module.scss";
 import Input from "../../../shared/customInput";
-
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import * as actions from "../../../../redux/actions/userAction";
-import { register } from "../../../../redux/actions/userAction";
-import { useSelector, useDispatch } from "react-redux";
 import { CircularProgress } from "@mui/material";
 import { Visibility } from "@mui/icons-material";
 import { VisibilityOff } from "@mui/icons-material";
-import { UserPayloadProps } from "../../../../types/UserPayloadProps.type";
+import { useAppDispatch } from "../../../../hooks/useTypedSelector";
+import { registerUser } from "../../../../reduxs/features/users/userSlice";
 
 interface FormProps {
   // open: boolean;
@@ -20,24 +17,11 @@ interface FormProps {
 
 const Form: React.FC<FormProps> = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const from = location?.state?.from?.pathname;
   console.log(from);
-  // console.log(dispatch);
-  // console.log(
-  //   dispatch(
-  //     userLogin({ email: "peterihimire@gmail.com", password: "password" })
-  //   )
-  // );
-  // const [showModal, setShowModal] = useState(false);
 
-  const [loginForm, setLoginForm] = useState({
-    email: "",
-    password: "",
-    // checked: true,
-  });
-  const [showPassword, setShowPassword] = useState(false);
   const [formError, setFormError] = useState("");
   const [logging, setLogging] = useState(false);
 
@@ -47,91 +31,61 @@ const Form: React.FC<FormProps> = () => {
     setVisible(!visible);
   };
 
-  // const handleFormChange = ({ name, value }) => {
-  //   setFormError("");
-  //   setLoginForm({ ...loginForm, [name]: value });
-  // };
-
-  const user = useSelector((state) => {
-    return state;
-  });
-  console.log(user);
   console.log(logging);
-  // console.log(loginForm);
-
-  // const { error, loading } = useSelector((state) => {
-  //   return {
-  //     error: state.auth.error,
-  //     loading: state.auth.loading,
-  //   };
-  // });
+  const validationSchema = Yup.object({
+    email: Yup.string().email("Invalid email address").required("Required"),
+    password: Yup.string().required("Required"),
+  });
 
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
-    validationSchema: Yup.object({
-      email: Yup.string().email("Invalid email address").required("Required *"),
-      password: Yup.string().required("Required *"),
-    }),
+
+    validationSchema: validationSchema,
 
     onSubmit: async (values) => {
-      console.log("This is coming from formik-values...", values);
+      console.log("This is the register value", values);
+      setLogging(true);
+      console.log("This is the register value", values);
+
       try {
-        // await dispatch(register(values)); // Dispatching the register action with form values
-        alert("Registration successful!"); // Optional success message
-      } catch (error) {
-        alert("Registration failed. Please try again."); // Optional error message
+        const user = await dispatch(registerUser(values));
+        console.log("This is user return value", user);
+        // navigate("/");
+      } catch (err: any) {
+        console.log(err);
+        setFormError(err.data.errors);
+      } finally {
+        setLogging(false);
       }
     },
   });
 
-  // const formik = useFormik({
-  //   initialValues: {
-  //     email: "",
-  //     password: "",
-  //   },
-  //   validationSchema: Yup.object({
-  //     email: Yup.string().email("Invalid email address").required("Required *"),
-  //     password: Yup.string().required("Required *"),
-  //   }),
-
-  //   onSubmit: async (values) => {
-  //     setLogging(true);
-
-  //     try {
-  //       const user = await dispatch(register(values));
-  //       console.log(user);
-  //       navigate("/login");
-  //     } catch (err) {
-  //       console.log(err);
-  //       // setFormError(err.data.errors);
-  //     } finally {
-  //       setLogging(false);
-  //     }
-  //   },
-  // });
+  // Clears the post verified error
+  useEffect(() => {
+    if (formError) {
+      setTimeout(() => {
+        setFormError("");
+      }, 4000);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formError]);
 
   return (
     <div className={styles.registerForm}>
       <h2>Register Account</h2>
 
-      <form
-        onSubmit={formik.handleSubmit}
-        // onSubmit={(e) => handleLogin(e)}
-      >
+      <form onSubmit={formik.handleSubmit}>
         <div className={styles.formGroup}>
           <Input
-            // labelText="What’s your Email?"
+            labelText="What’s your Email?"
             type="email"
             name="email"
             id="email"
             // required
             placeholder="Email"
-            // value={loginForm.email}
-            // onChange={(e) => handleFormChange(e.target)}
-
             value={formik.values.email}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
@@ -142,8 +96,7 @@ const Form: React.FC<FormProps> = () => {
         </div>
         <div className={styles.formGroup}>
           <Input
-            // labelText="Create a Password"
-
+            labelText="Create a Password"
             type={visible ? "text" : "password"}
             name="password"
             id="password"
@@ -165,17 +118,12 @@ const Form: React.FC<FormProps> = () => {
             <a className={styles.linkStyle}>Forgot Password?</a>
           </Link> */}
         </div>
-
+        {formError && <p className={styles.errorStyle}>*{formError}</p>}
         <div className={styles.submitBtn}>
           <button
             className="btn-primary btn-block"
             type="submit"
             disabled={logging}
-            onClick={(e) => {
-              // e.preventDefault();
-              // console.log("Clicked");
-              // router.push("/dashboard");
-            }}
           >
             {logging ? (
               <CircularProgress size={20} style={{ color: "#fff" }} />

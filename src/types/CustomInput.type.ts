@@ -15,6 +15,6 @@ export type CustomInputProps = {
   name: string;
   placeholder: string;
   value?: string;
-  onBlur?: (payload:string) => void;
-  onChange?: (payload: string) => void;
+  onBlur?: (payload: React.FocusEvent<HTMLInputElement>) => void;
+  onChange?: (payload: React.ChangeEvent<HTMLInputElement>) => void;
 };
