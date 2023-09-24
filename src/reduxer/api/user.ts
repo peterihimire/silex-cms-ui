@@ -1,6 +1,6 @@
 import $axios from "./config";
-import { UserPayloadProps } from "../../types/UserPayloadProps.type";
-
+import axios from "axios";
+import { UserPayloadProps } from "../actions/actionTypes";
 // import { store } from "../../App";
 
 const userAPI = {

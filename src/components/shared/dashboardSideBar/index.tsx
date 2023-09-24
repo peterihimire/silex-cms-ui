@@ -1,9 +1,17 @@
 // import React from "react";
 // import Nav from "./nav";
 import React, { useState, useEffect } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { DashboardSideBarProps } from "../../../types/DashboardSideBarprops";
 import Accordion from "../accordion";
+
+import { CircularProgress } from "@mui/material";
+import { Visibility } from "@mui/icons-material";
+import { VisibilityOff } from "@mui/icons-material";
+import { useAppDispatch } from "../../../hooks/useTypedSelector";
+import { logoutUser } from "../../../redux/features/users/userSlice";
+// import { useAppDispatch } from "../../../../hooks/useTypedSelector";
+// import { loginUser } from "../../../../reduxs/features/users/userSlice";
 
 import styles from "./styles.module.scss";
 
@@ -39,12 +47,24 @@ const DashboardSideBar: React.FC<DashboardSideBarProps> = ({
   isOpen,
 }: DashboardSideBarProps) => {
   const location = useLocation();
+  const navigate = useNavigate();
   console.log(location);
   console.log(location.pathname.split("/")[1]);
   const fullPath = location.pathname;
   console.log(fullPath, "this is fullpath");
   let pathUrl = location.pathname.split("/")[1];
   console.log("This is path-url...", pathUrl);
+  const dispatch = useAppDispatch();
+
+  const handleLogout = async () => {
+    console.log("logout clicked");
+    try {
+      dispatch(logoutUser());
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <nav className={`${`${styles.navSide}`} ${isOpen ? `${styles.show}` : ""}`}>
@@ -130,7 +150,13 @@ const DashboardSideBar: React.FC<DashboardSideBarProps> = ({
       </a>
 
       <div className={`${styles.navLogout}`}>
-        <button>Logout</button>
+        <button
+          onClick={() => {
+            handleLogout();
+          }}
+        >
+          Logout
+        </button>
       </div>
     </nav>
   );

@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styles from "./styles.module.scss";
 import Input from "../../../shared/customInput";
-
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-// import * as actions from "../../../../redux/actions/userAction";
-// import { adminLogin } from "../../../../redux/actions/adminAction";
-// import { useSelector, useDispatch } from "react-redux";
 import { CircularProgress } from "@mui/material";
 import { Visibility } from "@mui/icons-material";
 import { VisibilityOff } from "@mui/icons-material";
+import { useAppDispatch } from "../../../../hooks/useTypedSelector";
+import { loginUser } from "../../../../redux/features/users/userSlice";
 
 interface FormProps {
   // open: boolean;
@@ -19,25 +17,11 @@ interface FormProps {
 
 const Form: React.FC<FormProps> = () => {
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const from = location?.state?.from?.pathname;
   console.log(from);
-  // console.log(dispatch);
-  // console.log(
-  //   dispatch(
-  //     userLogin({ email: "peterihimire@gmail.com", password: "password" })
-  //   )
-  // );
-  // const [showModal, setShowModal] = useState(false);
 
-  const [loginForm, setLoginForm] = useState({
-    email: "",
-    password: "",
-    // checked: true,
-  });
-
-  // const [showPassword, setShowPassword] = useState(false);
   const [formError, setFormError] = useState("");
   const [logging, setLogging] = useState(false);
 
@@ -47,57 +31,51 @@ const Form: React.FC<FormProps> = () => {
     setVisible(!visible);
   };
 
-  // const handleFormChange = ({ name, value }) => {
-  //   setFormError("");
-  //   setLoginForm({ ...loginForm, [name]: value });
-  // };
-
-  // const user = useSelector((state) => {
-  //   return state;
-  // });
-  // console.log(user);
   console.log(logging);
-  // console.log(loginForm);
+  const validationSchema = Yup.object({
+    email: Yup.string().email("Invalid email address").required("Required"),
+    password: Yup.string().required("Required"),
+  });
 
-  // const { error, loading } = useSelector((state) => {
-  //   return {
-  //     error: state.auth.error,
-  //     loading: state.auth.loading,
-  //   };
-  // });
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: validationSchema,
 
-  // const formik = useFormik({
-  //   initialValues: {
-  //     email: "",
-  //     password: "",
-  //   },
-  //   validationSchema: Yup.object({
-  //     email: Yup.string().email("Invalid email address").required("Required *"),
-  //     password: Yup.string().required("Required *"),
-  //   }),
+    onSubmit: async (values) => {
+      setLogging(true);
+      try {
+        const admin = await dispatch(loginUser(values));
+        console.log(admin);
+        navigate("/dashboard");
+      } catch (err) {
+        console.log(err);
+        // setFormError(err.data.errors);
+      } finally {
+        setLogging(false);
+      }
+    },
+  });
 
-  //   onSubmit: async (values) => {
-  //     setLogging(true);
-  //     try {
-  //       const admin = await dispatch(adminLogin(values));
-  //       console.log(admin);
-  //       navigate("/admin/dashboard", { admin });
-  //     } catch (err) {
-  //       console.log(err);
-  //       // setFormError(err.data.errors);
-  //     } finally {
-  //       setLogging(false);
-  //     }
-  //   },
-  // });
+  // Clears the post verified error
+  useEffect(() => {
+    if (formError) {
+      setTimeout(() => {
+        setFormError("");
+      }, 4000);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formError]);
 
   return (
     <div className={styles.loginForm}>
       <h2>Login Account</h2>
 
       <form
-      // onSubmit={formik.handleSubmit}
-      // onSubmit={(e) => handleLogin(e)}
+        onSubmit={formik.handleSubmit}
+        // onSubmit={(e) => handleLogin(e)}
       >
         <div className={styles.formGroup}>
           <Input
@@ -107,21 +85,17 @@ const Form: React.FC<FormProps> = () => {
             id="email"
             // required
             placeholder="Email"
-            // value={loginForm.email}
-            // onChange={(e) => handleFormChange(e.target)}
-
-            // value={formik.values.email}
-            // onBlur={formik.handleBlur}
-            // onChange={formik.handleChange}
+            value={formik.values.email}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
           />
-          {/* {formik.touched.email && formik.errors.email ? (
+          {formik.touched.email && formik.errors.email ? (
             <p className={styles.errorStyle}>{formik.errors.email}</p>
-          ) : null} */}
+          ) : null}
         </div>
         <div className={styles.formGroup}>
           <Input
             // labelText="Create a Password"
-
             type={visible ? "text" : "password"}
             name="password"
             id="password"
@@ -130,35 +104,31 @@ const Form: React.FC<FormProps> = () => {
             password
             reveal={() => toggleVisibility()}
             passIcon={!visible ? <Visibility /> : <VisibilityOff />}
-            // value={formik.values.password}
-            // onBlur={formik.handleBlur}
-            // onChange={formik.handleChange}
+            value={formik.values.password}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
           />
-          {/* {formik.touched.password && formik.errors.password ? (
+          {formik.touched.password && formik.errors.password ? (
             <p className={styles.errorStyle}>{formik.errors.password}</p>
-          ) : null} */}
+          ) : null}
         </div>
         <div className={styles.forgot}>
           {/* <Link href='/forgot-password'>
             <a className={styles.linkStyle}>Forgot Password?</a>
           </Link> */}
         </div>
-
+        {formError && <p className={styles.errorStyle}>*{formError}</p>}
         <div className={styles.submitBtn}>
           <button
             className="btn-primary btn-block"
             type="submit"
             disabled={logging}
-            onClick={(e) => {
-              // e.preventDefault();
-              // console.log("Clicked");
-              // router.push("/dashboard");
-            }}
+            // onClick={(e) => {}}
           >
             {logging ? (
               <CircularProgress size={20} style={{ color: "#fff" }} />
             ) : (
-              "Send"
+              "Login"
             )}
           </button>
         </div>

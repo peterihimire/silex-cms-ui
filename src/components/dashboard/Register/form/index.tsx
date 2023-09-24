@@ -8,7 +8,7 @@ import { CircularProgress } from "@mui/material";
 import { Visibility } from "@mui/icons-material";
 import { VisibilityOff } from "@mui/icons-material";
 import { useAppDispatch } from "../../../../hooks/useTypedSelector";
-import { registerUser } from "../../../../reduxs/features/users/userSlice";
+import { registerUser } from "../../../../redux/features/users/userSlice";
 
 interface FormProps {
   // open: boolean;
@@ -53,7 +53,7 @@ const Form: React.FC<FormProps> = () => {
       try {
         const user = await dispatch(registerUser(values));
         console.log("This is user return value", user);
-        // navigate("/");
+        navigate("/");
       } catch (err: any) {
         console.log(err);
         setFormError(err.data.errors);
@@ -80,7 +80,7 @@ const Form: React.FC<FormProps> = () => {
       <form onSubmit={formik.handleSubmit}>
         <div className={styles.formGroup}>
           <Input
-            labelText="What’s your Email?"
+            // labelText="What’s your Email?"
             type="email"
             name="email"
             id="email"
@@ -96,7 +96,7 @@ const Form: React.FC<FormProps> = () => {
         </div>
         <div className={styles.formGroup}>
           <Input
-            labelText="Create a Password"
+            // labelText="Create a Password"
             type={visible ? "text" : "password"}
             name="password"
             id="password"
@@ -128,7 +128,7 @@ const Form: React.FC<FormProps> = () => {
             {logging ? (
               <CircularProgress size={20} style={{ color: "#fff" }} />
             ) : (
-              "Send"
+              "Register"
             )}
           </button>
         </div>
