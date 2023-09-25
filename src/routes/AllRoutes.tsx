@@ -1,24 +1,4 @@
-import React, { useState } from "react";
-import {
-  BrowserRouter,
-  Route,
-  Routes,
-  useLocation,
-  // useNavigate,
-  // withRouter,
-  // Navigate,
-} from "react-router-dom";
-// import { useSelector, useDispatch } from "react-redux";
-// import WebsiteLayout from "../layouts/website";
-// import AuthLayout from "../layouts/auth";
-// import DashboardLayout from "../layouts/dashboard";
-// import DashboardSettingsLayout from "../layouts/dashboardSettings";
-// import { HomePage } from "../pages/home";
-// import { LoginPage } from "../pages/login";
-// import { AdminLogin } from "../pages/adminLogin";
-
-// import { DashPage } from "../pages/dashboard";
-// import { AdminDash } from "../pages/adminDash";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ProtectedRoutes from "../hoc/ProtectedRoutes";
 
 import DashboardLayout from "../layouts/dashboard";
@@ -32,7 +12,7 @@ const AllRoutes = () => {
     return state;
   });
   console.log(userAuth);
-  const { data, authenticated } = userAuth;
+  const { authenticated } = userAuth;
 
   return (
     <BrowserRouter>

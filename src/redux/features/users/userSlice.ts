@@ -24,7 +24,8 @@ export const registerUser = createAsyncThunk(
       const data = response.data;
       return data;
     } catch (error: any) {
-      const message = error.message;
+      console.log("This is error message,lets see...", error);
+      const message = error.response.data;
       return thunkApi.rejectWithValue(message);
     }
   }

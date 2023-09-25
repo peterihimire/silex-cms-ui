@@ -9,6 +9,8 @@ import { Visibility } from "@mui/icons-material";
 import { VisibilityOff } from "@mui/icons-material";
 import { useAppDispatch } from "../../../../hooks/useTypedSelector";
 import { registerUser } from "../../../../redux/features/users/userSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface FormProps {
   // open: boolean;
@@ -49,14 +51,40 @@ const Form: React.FC<FormProps> = () => {
       console.log("This is the register value", values);
 
       try {
-        const user = await dispatch(registerUser(values));
-        console.log("This is user return value", user);
-        navigate("/");
+        const response = await dispatch(registerUser(values));
+        console.log("This is user return value", response);
+        if (response.payload.status === "success") {
+          toast.success(`${response.payload.msg}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+
+          setLogging(false);
+          setTimeout(() => {
+            navigate("/");
+          }, 3000);
+        } else {
+          toast.error(response.payload.msg, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          setLogging(false);
+        }
       } catch (err: any) {
-        console.log(err);
-        setFormError(err.data.errors);
-      } finally {
+        console.log("Will this error log...", err);
         setLogging(false);
+        setFormError(err.data.errors);
       }
     },
   });
@@ -136,8 +164,10 @@ const Form: React.FC<FormProps> = () => {
           <Link to="/">Login</Link>
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 };
 
 export default Form;
+// https://silexcms.onrender.com

@@ -8,6 +8,8 @@ import { CircularProgress } from "@mui/material";
 import { Visibility } from "@mui/icons-material";
 import { VisibilityOff } from "@mui/icons-material";
 import { useAppDispatch } from "../../../../hooks/useTypedSelector";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { loginUser } from "../../../../redux/features/users/userSlice";
 
 interface FormProps {
@@ -47,9 +49,41 @@ const Form: React.FC<FormProps> = () => {
     onSubmit: async (values) => {
       setLogging(true);
       try {
-        const admin = await dispatch(loginUser(values));
-        console.log(admin);
-        navigate("/dashboard");
+        // const admin = await dispatch(loginUser(values));
+        // console.log(admin);
+        // navigate("/dashboard");
+        const response = await dispatch(loginUser(values));
+        console.log("This is user return value", response);
+        if (response.payload.status === "success") {
+          toast.success(`${response.payload.msg}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+
+          setLogging(false);
+          setTimeout(() => {
+            navigate("/dashboard");
+          }, 3000);
+
+          // navigate("/");
+        } else {
+          toast.error(response.payload.msg, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          setLogging(false);
+        }
       } catch (err) {
         console.log(err);
         // setFormError(err.data.errors);
@@ -138,6 +172,7 @@ const Form: React.FC<FormProps> = () => {
           <Link to="/register">Register</Link>
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 };
