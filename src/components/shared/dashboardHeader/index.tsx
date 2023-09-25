@@ -13,7 +13,7 @@ const DashboardHeader: React.FC<DashboardHeaderProps> = ({
         <div className={styles.logo}>
           <Link to="/">
             {/* <Logo /> */}
-            HalaDigital
+            Silex
           </Link>
         </div>
 

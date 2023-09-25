@@ -14,6 +14,28 @@
         grid-template-columns: repeat(4, 1fr);
         gap: 33px 33px;
 
+        @media (max-width: 1200px) {
+          margin-left: 0px;
+          // flex-direction: column;
+          // height: auto;
+          // width: fit-content;
+        }
+
+        @media (max-width: 900px) {
+          grid-template-columns: repeat(2, 1fr);
+          // width: fit-content;
+          // grid-gap: 36px;
+          // gap: 36px;
+        }
+
+        @media (max-width: 700px) {
+          grid-template-columns: repeat(1, 1fr);
+          // grid-column-gap: 20px;
+          // width: fit-content;
+          // grid-gap: 36px;
+          // gap: 36px;
+        }
+
         .flipbox {
           padding: 50px;
           box-shadow: var(--box-shadow);
