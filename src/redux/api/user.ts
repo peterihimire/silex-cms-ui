@@ -20,10 +20,8 @@ const userAPI = {
     return $axios.get("/users/user");
   },
 
-  async getDashboard() {
-    return $axios.get(
-      "/dashboards/get_dashboard/6de26966-0f0b-41f0-8fdb-79772aff1133"
-    );
+  async getDashboard(payload: string) {
+    return $axios.get(`/dashboards/get_dashboard/:${payload} `);
   },
 };
 export default userAPI;

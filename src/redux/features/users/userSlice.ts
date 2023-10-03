@@ -48,9 +48,9 @@ export const loginUser = createAsyncThunk(
 
 export const getDashboard = createAsyncThunk(
   "users/dashboard",
-  async (data, thunkApi) => {
+  async (payload: string, thunkApi) => {
     try {
-      const response = await userAPI.getDashboard();
+      const response = await userAPI.getDashboard(payload);
       const data = response.data;
       return data;
     } catch (error: any) {

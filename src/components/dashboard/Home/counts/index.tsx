@@ -9,9 +9,9 @@ import styles from "./styles.module.scss";
 
 const Counts: React.FC = () => {
   const dispatch = useAppDispatch();
-
+  const dash_id = "6de26966-0f0b-41f0-8fdb-79772aff1133";
   useEffect(() => {
-    dispatch(getDashboard());
+    dispatch(getDashboard(dash_id));
   }, [dispatch]);
 
   const { authenticated, data, dashboard } = useAppSelector((state) => state);
