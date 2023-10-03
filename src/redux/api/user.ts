@@ -21,7 +21,7 @@ const userAPI = {
   },
 
   async getDashboard(payload: string) {
-    return $axios.get(`/dashboards/get_dashboard/:${payload} `);
+    return $axios.get(`/dashboards/get_dashboard/${payload} `);
   },
 };
 export default userAPI;
