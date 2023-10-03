@@ -6,16 +6,15 @@ const baseURL = "https://silex-cms-task.onrender.com/api/silex_task/v1";
 const config = {
   headers: {
     Accept: "application/json",
-    ContentType: "application/json",
-    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json",
     withCredentials: true,
-    Authorization: "Bearer ",
   },
 };
 
 let $axios = axios.create({
-  ...config,
+  // ...config,
   baseURL,
+  headers: config.headers,
 });
 
 export default $axios;
